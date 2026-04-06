@@ -16,17 +16,31 @@ I used simplified SSM model:
 h_{t+1} = A h_t + B x_t
 y_t = C h_t
 
-The dataset is synthetic: sequences are generated using another random (stable) SSM
+The dataset is synthetic: sequences are generated using another random (stable) SSM.
+
+I implemented weight-only PTQ for matrices A, B, and C. The quantization pipeline computes scale and zero-point values, then performs quantization to INT8 followed by dequantization back to float. 
+
+The model is evaluated under several conditions: clean test data, Gaussian noise, sequence shift perturbations.
 
 ## Structure:
+```bash
+ssm_ptq_project/
+├── train_baseline.py # train FP32 baseline model
+├── run_ptq_experiment.py # run PTQ and evaluation
+├── plot_results.py # generate plots from results
 
-model.py         # SSM model
-data.py          # synthetic dataset
-train.py         # training loop
-eval.py          # evaluation
-quant_utils.py   # quantization logic
-benchmark.py     # timing, memory
-main.py          # entry point
+├── model.py # SSM model
+├── data.py # dataset generation
+├── config.py # configuration (data, training, quantization)
+├── utils.py # general utilities 
+
+├── quant_utils.py # quantization logic 
+├── eval_utils.py # evaluation metrics 
+├── robustness_utils.py # noise and perturbation functions
+├── benchmark_utils.py # memory and latency measurement
+
+├── artifacts/ # saved models, results, plots
+```
 
 ## How to run:
 (anaconda prompt)
