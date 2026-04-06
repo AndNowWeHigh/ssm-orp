@@ -46,6 +46,9 @@ conda activate ssm_ptq
 )
 
 Navigate to the project directory
+```bash
+cd ~\ssm_ptq_project
+```
 
 ```bash
 
